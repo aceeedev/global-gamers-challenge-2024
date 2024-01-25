@@ -1,16 +1,14 @@
-{
-    "cards": [
-        {
-            "id": 1,
-            "description": "Test demo card 1",
-            "values": {"value 1": 10, "value 3": 3, "value 4": 5},
-            "sub ids": {"yes": [0]}
-        },
-        {
-            "id": 2,
-            "description": "Test demo card 2",
-            "values": {"value 2": 10, "value 4": 1},
-            "sub ids": {"yes": [1], "no": [0]}
-        }
-    ]
-}
+[
+    {
+        "id": 1,
+        "description": "Test demo card 1",
+        "values": {"soc": 1, "env": 2, "eco": 3},
+        "sub ids": {"yes": [0]}
+    },
+    {
+        "id": 2,
+        "description": "Test demo card 2",
+        "values": {"env": 3, "gov": 1},
+        "sub ids": {"yes": [1], "no": [0]}
+    }
+]

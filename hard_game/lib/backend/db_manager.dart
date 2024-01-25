@@ -25,14 +25,12 @@ class CardDB {
 
   Future<void> initAllCards() async {
     final String jsonString = await rootBundle.loadString('assets/data.json');
-    final Map<String, dynamic> data = jsonDecode(jsonString);
-
-    List<Map<String, dynamic>> cardDataList = data['cards'];
+    final List<Map<String, dynamic>> cardDataList = jsonDecode(jsonString);
 
     // check to see if cards have "changed"
     if (cardDataList.length != await (await isar).decisionCards.count()) {
       await (await isar).writeTxn(() async {
-        for (Map<String, dynamic> cardData in data['cards']) {
+        for (Map<String, dynamic> cardData in cardDataList) {
           DecisionCard cardToAdd = DecisionCard.fromJson(cardData);
 
           await (await isar).decisionCards.put(cardToAdd);

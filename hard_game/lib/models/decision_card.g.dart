@@ -22,33 +22,38 @@ const DecisionCardSchema = CollectionSchema(
       name: r'description',
       type: IsarType.string,
     ),
-    r'noSubIds': PropertySchema(
+    r'economicValue': PropertySchema(
       id: 1,
+      name: r'economicValue',
+      type: IsarType.long,
+    ),
+    r'environmentalValue': PropertySchema(
+      id: 2,
+      name: r'environmentalValue',
+      type: IsarType.long,
+    ),
+    r'governmentAndCommunityValue': PropertySchema(
+      id: 3,
+      name: r'governmentAndCommunityValue',
+      type: IsarType.long,
+    ),
+    r'noSubIds': PropertySchema(
+      id: 4,
       name: r'noSubIds',
       type: IsarType.longList,
     ),
-    r'valueFour': PropertySchema(
-      id: 2,
-      name: r'valueFour',
-      type: IsarType.long,
-    ),
-    r'valueOne': PropertySchema(
-      id: 3,
-      name: r'valueOne',
-      type: IsarType.long,
-    ),
-    r'valueThree': PropertySchema(
-      id: 4,
-      name: r'valueThree',
-      type: IsarType.long,
-    ),
-    r'valueTwo': PropertySchema(
+    r'peaceAndJusticeValue': PropertySchema(
       id: 5,
-      name: r'valueTwo',
+      name: r'peaceAndJusticeValue',
+      type: IsarType.long,
+    ),
+    r'socialValue': PropertySchema(
+      id: 6,
+      name: r'socialValue',
       type: IsarType.long,
     ),
     r'yesSubIds': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'yesSubIds',
       type: IsarType.longList,
     )
@@ -101,12 +106,13 @@ void _decisionCardSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.description);
-  writer.writeLongList(offsets[1], object.noSubIds);
-  writer.writeLong(offsets[2], object.valueFour);
-  writer.writeLong(offsets[3], object.valueOne);
-  writer.writeLong(offsets[4], object.valueThree);
-  writer.writeLong(offsets[5], object.valueTwo);
-  writer.writeLongList(offsets[6], object.yesSubIds);
+  writer.writeLong(offsets[1], object.economicValue);
+  writer.writeLong(offsets[2], object.environmentalValue);
+  writer.writeLong(offsets[3], object.governmentAndCommunityValue);
+  writer.writeLongList(offsets[4], object.noSubIds);
+  writer.writeLong(offsets[5], object.peaceAndJusticeValue);
+  writer.writeLong(offsets[6], object.socialValue);
+  writer.writeLongList(offsets[7], object.yesSubIds);
 }
 
 DecisionCard _decisionCardDeserialize(
@@ -117,13 +123,14 @@ DecisionCard _decisionCardDeserialize(
 ) {
   final object = DecisionCard(
     description: reader.readStringOrNull(offsets[0]),
+    economicValue: reader.readLongOrNull(offsets[1]),
+    environmentalValue: reader.readLongOrNull(offsets[2]),
+    governmentAndCommunityValue: reader.readLongOrNull(offsets[3]),
     id: id,
-    noSubIds: reader.readLongList(offsets[1]),
-    valueFour: reader.readLongOrNull(offsets[2]),
-    valueOne: reader.readLongOrNull(offsets[3]),
-    valueThree: reader.readLongOrNull(offsets[4]),
-    valueTwo: reader.readLongOrNull(offsets[5]),
-    yesSubIds: reader.readLongList(offsets[6]),
+    noSubIds: reader.readLongList(offsets[4]),
+    peaceAndJusticeValue: reader.readLongOrNull(offsets[5]),
+    socialValue: reader.readLongOrNull(offsets[6]),
+    yesSubIds: reader.readLongList(offsets[7]),
   );
   return object;
 }
@@ -138,16 +145,18 @@ P _decisionCardDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readLongList(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
       return (reader.readLongOrNull(offset)) as P;
     case 3:
       return (reader.readLongOrNull(offset)) as P;
     case 4:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLongList(offset)) as P;
     case 5:
       return (reader.readLongOrNull(offset)) as P;
     case 6:
+      return (reader.readLongOrNull(offset)) as P;
+    case 7:
       return (reader.readLongList(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -402,6 +411,228 @@ extension DecisionCardQueryFilter
     });
   }
 
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      economicValueIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'economicValue',
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      economicValueIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'economicValue',
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      economicValueEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'economicValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      economicValueGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'economicValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      economicValueLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'economicValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      economicValueBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'economicValue',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      environmentalValueIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'environmentalValue',
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      environmentalValueIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'environmentalValue',
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      environmentalValueEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'environmentalValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      environmentalValueGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'environmentalValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      environmentalValueLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'environmentalValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      environmentalValueBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'environmentalValue',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      governmentAndCommunityValueIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'governmentAndCommunityValue',
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      governmentAndCommunityValueIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'governmentAndCommunityValue',
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      governmentAndCommunityValueEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'governmentAndCommunityValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      governmentAndCommunityValueGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'governmentAndCommunityValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      governmentAndCommunityValueLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'governmentAndCommunityValue',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
+      governmentAndCommunityValueBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'governmentAndCommunityValue',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition> idIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -636,63 +867,63 @@ extension DecisionCardQueryFilter
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueFourIsNull() {
+      peaceAndJusticeValueIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'valueFour',
+        property: r'peaceAndJusticeValue',
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueFourIsNotNull() {
+      peaceAndJusticeValueIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'valueFour',
+        property: r'peaceAndJusticeValue',
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueFourEqualTo(int? value) {
+      peaceAndJusticeValueEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'valueFour',
+        property: r'peaceAndJusticeValue',
         value: value,
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueFourGreaterThan(
+      peaceAndJusticeValueGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'valueFour',
+        property: r'peaceAndJusticeValue',
         value: value,
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueFourLessThan(
+      peaceAndJusticeValueLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'valueFour',
+        property: r'peaceAndJusticeValue',
         value: value,
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueFourBetween(
+      peaceAndJusticeValueBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -700,7 +931,7 @@ extension DecisionCardQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'valueFour',
+        property: r'peaceAndJusticeValue',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -710,63 +941,63 @@ extension DecisionCardQueryFilter
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueOneIsNull() {
+      socialValueIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'valueOne',
+        property: r'socialValue',
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueOneIsNotNull() {
+      socialValueIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'valueOne',
+        property: r'socialValue',
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueOneEqualTo(int? value) {
+      socialValueEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'valueOne',
+        property: r'socialValue',
         value: value,
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueOneGreaterThan(
+      socialValueGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'valueOne',
+        property: r'socialValue',
         value: value,
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueOneLessThan(
+      socialValueLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'valueOne',
+        property: r'socialValue',
         value: value,
       ));
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueOneBetween(
+      socialValueBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -774,155 +1005,7 @@ extension DecisionCardQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'valueOne',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueThreeIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'valueThree',
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueThreeIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'valueThree',
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueThreeEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'valueThree',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueThreeGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'valueThree',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueThreeLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'valueThree',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueThreeBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'valueThree',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueTwoIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'valueTwo',
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueTwoIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'valueTwo',
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueTwoEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'valueTwo',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueTwoGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'valueTwo',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueTwoLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'valueTwo',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterFilterCondition>
-      valueTwoBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'valueTwo',
+        property: r'socialValue',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1116,52 +1199,71 @@ extension DecisionCardQuerySortBy
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueFour() {
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByEconomicValue() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueFour', Sort.asc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueFourDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueFour', Sort.desc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueOne() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueOne', Sort.asc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueOneDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueOne', Sort.desc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueThree() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueThree', Sort.asc);
+      return query.addSortBy(r'economicValue', Sort.asc);
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
-      sortByValueThreeDesc() {
+      sortByEconomicValueDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueThree', Sort.desc);
+      return query.addSortBy(r'economicValue', Sort.desc);
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueTwo() {
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortByEnvironmentalValue() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueTwo', Sort.asc);
+      return query.addSortBy(r'environmentalValue', Sort.asc);
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortByValueTwoDesc() {
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortByEnvironmentalValueDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueTwo', Sort.desc);
+      return query.addSortBy(r'environmentalValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortByGovernmentAndCommunityValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'governmentAndCommunityValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortByGovernmentAndCommunityValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'governmentAndCommunityValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortByPeaceAndJusticeValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'peaceAndJusticeValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortByPeaceAndJusticeValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'peaceAndJusticeValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> sortBySocialValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'socialValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      sortBySocialValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'socialValue', Sort.desc);
     });
   }
 }
@@ -1181,6 +1283,47 @@ extension DecisionCardQuerySortThenBy
     });
   }
 
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByEconomicValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'economicValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenByEconomicValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'economicValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenByEnvironmentalValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'environmentalValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenByEnvironmentalValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'environmentalValue', Sort.desc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenByGovernmentAndCommunityValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'governmentAndCommunityValue', Sort.asc);
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenByGovernmentAndCommunityValueDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'governmentAndCommunityValue', Sort.desc);
+    });
+  }
+
   QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1193,52 +1336,30 @@ extension DecisionCardQuerySortThenBy
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueFour() {
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenByPeaceAndJusticeValue() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueFour', Sort.asc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueFourDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueFour', Sort.desc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueOne() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueOne', Sort.asc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueOneDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueOne', Sort.desc);
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueThree() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueThree', Sort.asc);
+      return query.addSortBy(r'peaceAndJusticeValue', Sort.asc);
     });
   }
 
   QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
-      thenByValueThreeDesc() {
+      thenByPeaceAndJusticeValueDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueThree', Sort.desc);
+      return query.addSortBy(r'peaceAndJusticeValue', Sort.desc);
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueTwo() {
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenBySocialValue() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueTwo', Sort.asc);
+      return query.addSortBy(r'socialValue', Sort.asc);
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy> thenByValueTwoDesc() {
+  QueryBuilder<DecisionCard, DecisionCard, QAfterSortBy>
+      thenBySocialValueDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valueTwo', Sort.desc);
+      return query.addSortBy(r'socialValue', Sort.desc);
     });
   }
 }
@@ -1252,33 +1373,43 @@ extension DecisionCardQueryWhereDistinct
     });
   }
 
+  QueryBuilder<DecisionCard, DecisionCard, QDistinct>
+      distinctByEconomicValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'economicValue');
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QDistinct>
+      distinctByEnvironmentalValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'environmentalValue');
+    });
+  }
+
+  QueryBuilder<DecisionCard, DecisionCard, QDistinct>
+      distinctByGovernmentAndCommunityValue() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'governmentAndCommunityValue');
+    });
+  }
+
   QueryBuilder<DecisionCard, DecisionCard, QDistinct> distinctByNoSubIds() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'noSubIds');
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QDistinct> distinctByValueFour() {
+  QueryBuilder<DecisionCard, DecisionCard, QDistinct>
+      distinctByPeaceAndJusticeValue() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'valueFour');
+      return query.addDistinctBy(r'peaceAndJusticeValue');
     });
   }
 
-  QueryBuilder<DecisionCard, DecisionCard, QDistinct> distinctByValueOne() {
+  QueryBuilder<DecisionCard, DecisionCard, QDistinct> distinctBySocialValue() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'valueOne');
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QDistinct> distinctByValueThree() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'valueThree');
-    });
-  }
-
-  QueryBuilder<DecisionCard, DecisionCard, QDistinct> distinctByValueTwo() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'valueTwo');
+      return query.addDistinctBy(r'socialValue');
     });
   }
 
@@ -1303,33 +1434,42 @@ extension DecisionCardQueryProperty
     });
   }
 
+  QueryBuilder<DecisionCard, int?, QQueryOperations> economicValueProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'economicValue');
+    });
+  }
+
+  QueryBuilder<DecisionCard, int?, QQueryOperations>
+      environmentalValueProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'environmentalValue');
+    });
+  }
+
+  QueryBuilder<DecisionCard, int?, QQueryOperations>
+      governmentAndCommunityValueProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'governmentAndCommunityValue');
+    });
+  }
+
   QueryBuilder<DecisionCard, List<int>?, QQueryOperations> noSubIdsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'noSubIds');
     });
   }
 
-  QueryBuilder<DecisionCard, int?, QQueryOperations> valueFourProperty() {
+  QueryBuilder<DecisionCard, int?, QQueryOperations>
+      peaceAndJusticeValueProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'valueFour');
+      return query.addPropertyName(r'peaceAndJusticeValue');
     });
   }
 
-  QueryBuilder<DecisionCard, int?, QQueryOperations> valueOneProperty() {
+  QueryBuilder<DecisionCard, int?, QQueryOperations> socialValueProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'valueOne');
-    });
-  }
-
-  QueryBuilder<DecisionCard, int?, QQueryOperations> valueThreeProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'valueThree');
-    });
-  }
-
-  QueryBuilder<DecisionCard, int?, QQueryOperations> valueTwoProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'valueTwo');
+      return query.addPropertyName(r'socialValue');
     });
   }
 
