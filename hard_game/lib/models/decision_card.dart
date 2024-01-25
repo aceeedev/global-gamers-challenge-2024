@@ -6,20 +6,22 @@ part 'decision_card.g.dart';
 class DecisionCard {
   Id? id;
   String? description;
-  int? valueOne;
-  int? valueTwo;
-  int? valueThree;
-  int? valueFour;
+  int? socialValue;
+  int? environmentalValue;
+  int? economicValue;
+  int? peaceAndJusticeValue;
+  int? governmentAndCommunityValue;
   List<int>? yesSubIds;
   List<int>? noSubIds;
 
   DecisionCard(
       {this.id,
       this.description,
-      this.valueOne,
-      this.valueTwo,
-      this.valueThree,
-      this.valueFour,
+      this.socialValue,
+      this.environmentalValue,
+      this.economicValue,
+      this.peaceAndJusticeValue,
+      this.governmentAndCommunityValue,
       this.yesSubIds,
       this.noSubIds});
 
@@ -27,12 +29,13 @@ class DecisionCard {
     return DecisionCard(
       id: json['id'],
       description: json['description'],
-      valueOne: json['values']['value 1'] ?? 0,
-      valueTwo: json['values']['value 2'] ?? 0,
-      valueThree: json['values']['value 3'] ?? 0,
-      valueFour: json['values']['value 4'] ?? 0,
-      yesSubIds: json['sub ids']['yes'] ?? [],
-      noSubIds: json['sub ids']['no'] ?? [],
+      socialValue: json['values']['soc'],
+      environmentalValue: json['values']['env'],
+      economicValue: json['values']['eco'],
+      peaceAndJusticeValue: json['values']['pea'],
+      governmentAndCommunityValue: json['values']['gov'],
+      yesSubIds: json['sub ids']['yes'],
+      noSubIds: json['sub ids']['no'],
     );
   }
 }
