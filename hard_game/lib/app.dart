@@ -11,8 +11,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   void initState() {
-    
-
     super.initState();
   }
 
@@ -25,6 +23,7 @@ class _AppState extends State<App> {
         useMaterial3: true,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
