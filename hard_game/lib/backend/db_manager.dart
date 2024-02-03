@@ -38,4 +38,12 @@ class CardDB {
       });
     }
   }
+
+  Future<List<DecisionCard>> getAllCards() async {
+    await (await isar).txn(() async {
+      return await (await isar).decisionCards.where().findAll();
+    });
+
+    return [];
+  }
 }
